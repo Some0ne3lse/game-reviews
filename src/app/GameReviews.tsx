@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { use, useState } from "react";
 import Image from "next/image";
 
 type FormProps = {
@@ -9,6 +9,7 @@ type FormProps = {
   handleDescriptionChange: any;
   newReview: any;
   handleReviewChange: any;
+  getFile: any;
 };
 
 const GameReviewForm = ({
@@ -19,6 +20,7 @@ const GameReviewForm = ({
   handleDescriptionChange,
   newReview,
   handleReviewChange,
+  getFile,
 }: FormProps) => {
   return (
     <form onSubmit={addReview}>
@@ -35,6 +37,10 @@ const GameReviewForm = ({
         <textarea value={newReview} onChange={handleReviewChange} />
       </div>
       <div>
+        <div> Upload an image:</div>
+        <input type="file" onChange={getFile} />
+      </div>
+      <div>
         <button type="submit">Add review</button>
       </div>
     </form>
@@ -43,25 +49,30 @@ const GameReviewForm = ({
 
 type GameReviewProps = {
   reviewsList: any;
-  // image: string;
+  fileName: any;
 };
 
-const GameReview = ({ reviewsList }: GameReviewProps) => {
+const GameReview = ({ reviewsList, fileName }: GameReviewProps) => {
   return (
     <ul>
       {reviewsList.map((game: any, index: number) => (
         <li key={index}>
-          <div>
-            <div>Game:</div>
-            {game.name}
-          </div>
-          <div>
-            <div>Description:</div>
-            {game.description}
-          </div>
-          <div>
-            <div>Review:</div>
-            {game.review}
+          <div className="review-content">
+            <div>
+              <div>
+                <div>Game:</div>
+                {game.name}
+              </div>
+              <div>
+                <div>Description:</div>
+                {game.description}
+              </div>
+              <div>
+                <div>Review:</div>
+                {game.review}
+              </div>
+            </div>
+            <img src={fileName} />
           </div>
         </li>
       ))}
@@ -74,6 +85,7 @@ export default () => {
   const [newName, setNewName] = useState("");
   const [newDescription, setNewDescription] = useState("");
   const [newReview, setNewReview] = useState("");
+  const [file, setFile] = useState("");
 
   const addReview = (event: any) => {
     event.preventDefault();
@@ -100,6 +112,10 @@ export default () => {
     setNewReview(event.target.value);
   };
 
+  const getFile = (event: any) => {
+    setFile(URL.createObjectURL(event.target.files[0]));
+  };
+
   return (
     <>
       <GameReviewForm
@@ -110,8 +126,9 @@ export default () => {
         handleDescriptionChange={handleDescriptionChange}
         newReview={newReview}
         handleReviewChange={handleReviewChange}
+        getFile={getFile}
       />
-      <GameReview reviewsList={reviews} />
+      <GameReview reviewsList={reviews} fileName={file} />
     </>
   );
 };
