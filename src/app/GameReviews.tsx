@@ -42,30 +42,41 @@ const GameReviewForm = ({
 };
 
 type GameReviewProps = {
-  name: string;
-  description: string;
-  review: string;
+  reviewsList: any;
   // image: string;
 };
 
-const GameReview = ({ name, description, review }: GameReviewProps) => {
+const GameReview = ({ reviewsList }: GameReviewProps) => {
   return (
-    <>
-      <div>Name: {name}</div>
-      <div>Description: {description}</div>
-      <div>Review: {review}</div>
-      {/* <Image src={image} alt="An image of the game"></Image> */}
-    </>
+    <ul>
+      {reviewsList.map((game: any, index: number) => (
+        <li key={index}>
+          <div>
+            <div>Game:</div>
+            {game.name}
+          </div>
+          <div>
+            <div>Description:</div>
+            {game.description}
+          </div>
+          <div>
+            <div>Review:</div>
+            {game.review}
+          </div>
+        </li>
+      ))}
+    </ul>
   );
 };
 
 export default () => {
-  const [reviews, setReviews] = useState([{}]);
+  const [reviews, setReviews] = useState([] as Array<object>);
   const [newName, setNewName] = useState("");
   const [newDescription, setNewDescription] = useState("");
   const [newReview, setNewReview] = useState("");
 
-  const addReview = () => {
+  const addReview = (event: any) => {
+    event.preventDefault();
     const reviewObject = {
       name: newName,
       description: newDescription,
@@ -77,18 +88,15 @@ export default () => {
     setNewReview("");
   };
 
-  // I used chatGPT to find the type for this function
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleNameChange = (event: any) => {
     setNewName(event.target.value);
   };
 
-  const handleDescriptionChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleDescriptionChange = (event: any) => {
     setNewDescription(event.target.value);
   };
 
-  const handleReviewChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleReviewChange = (event: any) => {
     setNewReview(event.target.value);
   };
 
@@ -103,6 +111,7 @@ export default () => {
         newReview={newReview}
         handleReviewChange={handleReviewChange}
       />
+      <GameReview reviewsList={reviews} />
     </>
   );
 };
