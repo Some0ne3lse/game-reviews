@@ -1,5 +1,4 @@
 import { use, useState } from "react";
-import Image from "next/image";
 
 type FormProps = {
   addReview: any;
@@ -7,8 +6,8 @@ type FormProps = {
   handleNameChange: any;
   newDescription: any;
   handleDescriptionChange: any;
-  newReview: any;
-  handleReviewChange: any;
+  newRating: any;
+  handleRatingChange: any;
   getFile: any;
 };
 
@@ -18,8 +17,8 @@ const GameReviewForm = ({
   handleNameChange,
   newDescription,
   handleDescriptionChange,
-  newReview,
-  handleReviewChange,
+  newRating,
+  handleRatingChange,
   getFile,
 }: FormProps) => {
   return (
@@ -33,8 +32,14 @@ const GameReviewForm = ({
         <textarea value={newDescription} onChange={handleDescriptionChange} />
       </div>
       <div>
-        <div>Review: </div>
-        <textarea value={newReview} onChange={handleReviewChange} />
+        <div>Rating: </div>
+        <input
+          type="number"
+          min={0}
+          max={10}
+          value={newRating}
+          onChange={handleRatingChange}
+        />
       </div>
       <div>
         <div> Upload an image:</div>
@@ -68,8 +73,8 @@ const GameReview = ({ reviewsList, fileName }: GameReviewProps) => {
                 {game.description}
               </div>
               <div>
-                <div>Review:</div>
-                {game.review}
+                <div>Rating:</div>
+                {game.rating}
               </div>
             </div>
             <img src={fileName} />
@@ -84,7 +89,7 @@ export default () => {
   const [reviews, setReviews] = useState([] as Array<object>);
   const [newName, setNewName] = useState("");
   const [newDescription, setNewDescription] = useState("");
-  const [newReview, setNewReview] = useState("");
+  const [newRating, setNewRating] = useState(0);
   const [file, setFile] = useState("");
 
   const addReview = (event: any) => {
@@ -92,12 +97,12 @@ export default () => {
     const reviewObject = {
       name: newName,
       description: newDescription,
-      review: newReview,
+      rating: newRating,
     };
     setReviews(reviews.concat(reviewObject));
     setNewName("");
     setNewDescription("");
-    setNewReview("");
+    setNewRating(0);
   };
 
   const handleNameChange = (event: any) => {
@@ -108,8 +113,8 @@ export default () => {
     setNewDescription(event.target.value);
   };
 
-  const handleReviewChange = (event: any) => {
-    setNewReview(event.target.value);
+  const handleRatingChange = (event: any) => {
+    setNewRating(event.target.value);
   };
 
   const getFile = (event: any) => {
@@ -124,8 +129,8 @@ export default () => {
         handleNameChange={handleNameChange}
         newDescription={newDescription}
         handleDescriptionChange={handleDescriptionChange}
-        newReview={newReview}
-        handleReviewChange={handleReviewChange}
+        newRating={newRating}
+        handleRatingChange={handleRatingChange}
         getFile={getFile}
       />
       <GameReview reviewsList={reviews} fileName={file} />
