@@ -18,16 +18,16 @@ export const SubmittedReviews = (props: SubmittedReviewsProps) => {
           <div className="review-content">
             <div>
               <div>
-                <div>Game:</div>
+                <h3>Game:</h3>
                 {game.name}
               </div>
               <div>
-                <div>Description:</div>
+                <h3>Description:</h3>
                 {game.description}
               </div>
               <div>
-                <div>Rating:</div>
-                {game.rating}
+                <h3>Rating:</h3>
+                {game.rating} / 10
               </div>
             </div>
             <img src={game.image} />

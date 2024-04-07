@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Form } from "./Form";
 import { SubmittedReviews } from "./SubmittedReviews";
+import { Header } from "./Header";
 
 type Review = {
   name: string;
@@ -52,16 +53,19 @@ export default () => {
 
   return (
     <>
-      <Form
-        addReview={addReview}
-        newName={newName}
-        handleNameChange={handleNameChange}
-        newDescription={newDescription}
-        handleDescriptionChange={handleDescriptionChange}
-        newRating={newRating}
-        handleRatingChange={handleRatingChange}
-        getFile={getFile}
-      />
+      <div className="form-container">
+        <Header text="Add Your Game Review" />
+        <Form
+          addReview={addReview}
+          newName={newName}
+          handleNameChange={handleNameChange}
+          newDescription={newDescription}
+          handleDescriptionChange={handleDescriptionChange}
+          newRating={newRating}
+          handleRatingChange={handleRatingChange}
+          getFile={getFile}
+        />
+      </div>
       <SubmittedReviews reviewsList={reviews} />
     </>
   );

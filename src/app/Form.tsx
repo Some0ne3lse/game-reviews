@@ -13,25 +13,27 @@ type FormProps = {
 
 export const Form = (props: FormProps) => {
   return (
-    <form onSubmit={props.addReview}>
-      <div>
-        <div>Name: </div>
+    <form className="form" onSubmit={props.addReview}>
+      <div className="form-name">
+        <h2>Name: </h2>
         <input
+          className="form-name-input"
           value={props.newName}
           onChange={props.handleNameChange}
           required
         />
       </div>
-      <div>
-        <div>Description: </div>
+      <div className="form-description">
+        <h2>Description: </h2>
         <textarea
+          className="form-description-input"
           value={props.newDescription}
           onChange={props.handleDescriptionChange}
           required
         />
       </div>
-      <div>
-        <div>Rating: </div>
+      <div className="form-rating">
+        <h2>Rating: </h2>
         <input
           type="number"
           min={0}
@@ -41,11 +43,11 @@ export const Form = (props: FormProps) => {
           required
         />
       </div>
-      <div>
-        <div> Upload an image:</div>
+      <div className="form-image">
+        <h2> Upload an image:</h2>
         <input type="file" onChange={props.getFile} />
       </div>
-      <div>
+      <div className="form-submit">
         <button type="submit">Add review</button>
       </div>
     </form>
