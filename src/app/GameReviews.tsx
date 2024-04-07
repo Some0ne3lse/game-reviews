@@ -1,63 +1,6 @@
 import { useState } from "react";
-
-type FormProps = {
-  addReview: (event: React.FormEvent<HTMLFormElement>) => void;
-  newName: string;
-  handleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  newDescription: string;
-  handleDescriptionChange: (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ) => void;
-  newRating: string;
-  handleRatingChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  getFile: (event: React.ChangeEvent<HTMLInputElement>) => void;
-};
-
-const GameReviewForm = ({
-  addReview,
-  newName,
-  handleNameChange,
-  newDescription,
-  handleDescriptionChange,
-  newRating,
-  handleRatingChange,
-  getFile,
-}: FormProps) => {
-  return (
-    <form onSubmit={addReview}>
-      <div>
-        <div>Name: </div>
-        <input value={newName} onChange={handleNameChange} required />
-      </div>
-      <div>
-        <div>Description: </div>
-        <textarea
-          value={newDescription}
-          onChange={handleDescriptionChange}
-          required
-        />
-      </div>
-      <div>
-        <div>Rating: </div>
-        <input
-          type="number"
-          min={0}
-          max={10}
-          value={newRating}
-          onChange={handleRatingChange}
-          required
-        />
-      </div>
-      <div>
-        <div> Upload an image:</div>
-        <input type="file" onChange={getFile} />
-      </div>
-      <div>
-        <button type="submit">Add review</button>
-      </div>
-    </form>
-  );
-};
+import { Form } from "./Form";
+import { SubmittedReviews } from "./SubmittedReviews";
 
 type Review = {
   name: string;
@@ -66,42 +9,8 @@ type Review = {
   image: string;
 };
 
-// I used chatGPT for the GameReviewProps here and by next comment because of TypeScript
-
-type GameReviewProps = {
-  reviewsList: Review[];
-};
-
-const GameReview = ({ reviewsList }: GameReviewProps) => {
-  return (
-    <ul>
-      {reviewsList.map((game: any, index: number) => (
-        <li key={index}>
-          <div className="review-content">
-            <div>
-              <div>
-                <div>Game:</div>
-                {game.name}
-              </div>
-              <div>
-                <div>Description:</div>
-                {game.description}
-              </div>
-              <div>
-                <div>Rating:</div>
-                {game.rating}
-              </div>
-            </div>
-            <img src={game.image} />
-          </div>
-        </li>
-      ))}
-    </ul>
-  );
-};
-
 export default () => {
-  // I used chatGPT for the useState for the reviews here because of TypeScript
+  // I used chatGPT for the useState for the first line of code here because of TypeScript
   const [reviews, setReviews] = useState<Review[]>([]);
   const [newName, setNewName] = useState("");
   const [newDescription, setNewDescription] = useState("");
@@ -141,7 +50,7 @@ export default () => {
 
   return (
     <>
-      <GameReviewForm
+      <Form
         addReview={addReview}
         newName={newName}
         handleNameChange={handleNameChange}
@@ -151,7 +60,7 @@ export default () => {
         handleRatingChange={handleRatingChange}
         getFile={getFile}
       />
-      <GameReview reviewsList={reviews} />
+      <SubmittedReviews reviewsList={reviews} />
     </>
   );
 };
