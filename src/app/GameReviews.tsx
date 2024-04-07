@@ -29,10 +29,10 @@ export default () => {
     setNewName("");
     setNewDescription("");
     setNewRating("");
+    setFile("");
   };
 
   const handleNameChange = (event: any) => {
-    console.log(typeof event);
     setNewName(event.target.value);
   };
 
@@ -45,7 +45,9 @@ export default () => {
   };
 
   const getFile = (event: any) => {
-    setFile(URL.createObjectURL(event.target.files[0]));
+    if (event.target.files.length !== 0) {
+      setFile(URL.createObjectURL(event.target.files[0]));
+    }
   };
 
   return (
