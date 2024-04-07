@@ -45,7 +45,7 @@ export const Form = (props: FormProps) => {
       </div>
       <div className="form-image">
         <h2> Upload an image:</h2>
-        <input type="file" onChange={props.getFile} />
+        <input type="file" onChange={props.getFile} accept="image/*" />
       </div>
       <div className="form-submit">
         <button type="submit">Add review</button>
